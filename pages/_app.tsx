@@ -4,7 +4,7 @@ import { getSession, SessionProvider } from "next-auth/react";
 import { GetServerSideProps } from "next";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { session, ...props } = pageProps;
+  const { session } = pageProps;
 
   return (
     <SessionProvider session={session}>

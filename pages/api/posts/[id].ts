@@ -14,6 +14,11 @@ export default async function handler(
   }
   if (req.method === "PUT") {
     const newPost = req.body;
+    if (newPost.videoUrl && newPost.videoUrl.includes("youtube")) {
+      const videoID = newPost.videoUrl.split("v=")[1];
+      const imageUrl = `https://i.ytimg.com/vi/${videoID}/mqdefault.jpg`;
+      newPost.imageUrl = imageUrl;
+    }
     try {
       const editedPost = await prisma.post.update({
         where: { id },

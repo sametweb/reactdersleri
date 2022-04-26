@@ -19,6 +19,11 @@ export default async function handler(
   }
   if (req.method === "POST") {
     const newPost = req.body;
+    if (newPost.videoUrl && newPost.videoUrl.contains("youtube")) {
+      const videoID = newPost.videoUrl.split("v=")[1];
+      const imageUrl = `https://i.ytimg.com/vi/${videoID}/mqdefault.jpg`;
+      newPost.imageUrl = imageUrl;
+    }
     const addedPost = await addPost(newPost);
     res.status(201).json(addedPost);
   }
