@@ -1,8 +1,26 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "styles/globals.css";
+import type { AppProps } from "next/app";
+import { getSession, SessionProvider } from "next-auth/react";
+import { GetServerSideProps } from "next";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  const { session, ...props } = pageProps;
+
+  return (
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
 }
 
-export default MyApp
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session,
+    },
+  };
+};
+
+export default MyApp;
