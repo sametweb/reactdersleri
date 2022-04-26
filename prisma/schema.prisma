@@ -12,8 +12,6 @@ datasource db {
 
 model Post {
   id         Int       @id @default(autoincrement())
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
   title      String    @db.VarChar(255)
   content    String?
   videoUrl   String?
@@ -23,15 +21,17 @@ model Post {
   authorId   String
   playlist   Playlist? @relation(fields: [playlistId], references: [id])
   playlistId Int?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 model Playlist {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
   imageUrl  String?  @db.Text
   posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Account {
