@@ -1,20 +1,20 @@
 import React from "react";
 import styles from "./Carousel.module.css";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
-import { Post } from "@prisma/client";
+import { Playlist, Post } from "@prisma/client";
 import PostImage from "components/PostImage";
 
 interface Props {
-  title: string;
+  playlist: Playlist;
   posts: Post[];
 }
 
 const Carousel: React.FC<Props> = (props) => {
-  const { posts, title } = props;
+  const { posts, playlist } = props;
 
   return (
     <div className={styles.container}>
-      <h3>{title}</h3>
+      <h3 className={styles.carouselTitle}>{playlist.title}</h3>
       <div className={styles.carousel}>
         <div className={styles.leftArrow}>
           <ChevronLeftIcon className="w-5" />

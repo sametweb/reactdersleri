@@ -2,12 +2,16 @@
 import { Post } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "db";
+import makeSlug from "utils/makeSlug";
 
 export const getPosts = async () => await prisma.post.findMany();
-export const addPost = async (newPost: Post) =>
-  await prisma.post.create({
+export const addPost = async (newPost: Post) => {
+  const slug = makeSlug(newPost.title);
+  newPost.slug = slug;
+  return await prisma.post.create({
     data: newPost,
   });
+};
 
 export default async function handler(
   req: NextApiRequest,

@@ -20,7 +20,11 @@ const Home: NextPage<ComponentProps> = (props) => {
     <Layout>
       <div className={styles.container}>
         {playlists.map((playlist) => (
-          <Carousel posts={playlist.posts} title="" />
+          <Carousel
+            key={playlist.id}
+            playlist={playlist}
+            posts={playlist.posts}
+          />
         ))}
       </div>
     </Layout>
@@ -34,16 +38,7 @@ export const getServerSideProps: GetServerSideProps<{
 
   return {
     props: {
-      playlists: playlists.map((playlist) => ({
-        ...playlist,
-        createdAt: playlist.createdAt.toLocaleString(),
-        updatedAt: playlist.updatedAt.toLocaleString(),
-        posts: playlist.posts.map((post) => ({
-          ...post,
-          createdAt: post.createdAt.toLocaleString(),
-          updatedAt: post.updatedAt.toLocaleString(),
-        })),
-      })),
+      playlists,
     },
   };
 };

@@ -1,7 +1,11 @@
 .container {
+  @apply bg-slate-50 py-5;
 }
 .carousel {
-  @apply flex flex-row justify-between items-center h-[160px];
+  @apply flex flex-row justify-between items-center;
+}
+.carouselTitle {
+  @apply pl-11 pb-3 text-lg font-bold mb-5 border-b border-b-slate-200;
 }
 .items {
   @apply flex flex-row justify-start w-full;
@@ -12,7 +16,7 @@
 .image {
 }
 .title {
-  @apply font-bold;
+  @apply text-sm font-semibold;
 }
 
 .leftArrow {

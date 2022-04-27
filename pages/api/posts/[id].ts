@@ -3,6 +3,7 @@ import { Post } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "db";
 import { ErrorResponse } from "types/error";
+import makeSlug from "utils/makeSlug";
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,6 +19,10 @@ export default async function handler(
       const videoID = newPost.videoUrl.split("v=")[1];
       const imageUrl = `https://i.ytimg.com/vi/${videoID}/mqdefault.jpg`;
       newPost.imageUrl = imageUrl;
+    }
+    if (newPost.title) {
+      const slug = makeSlug(newPost.title);
+      newPost.slug = slug;
     }
     try {
       const editedPost = await prisma.post.update({

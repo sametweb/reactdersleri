@@ -2,6 +2,7 @@
 import { Playlist } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "db";
+import makeSlug from "utils/makeSlug";
 
 export const getPlaylists = async () =>
   await prisma.playlist.findMany({
@@ -9,11 +10,13 @@ export const getPlaylists = async () =>
       posts: true,
     },
   });
-export const addPlaylist = async (newPlaylist: Playlist) =>
-  await prisma.playlist.create({
+export const addPlaylist = async (newPlaylist: Playlist) => {
+  const slug = makeSlug(newPlaylist.title);
+  newPlaylist.slug = slug;
+  return await prisma.playlist.create({
     data: newPlaylist,
   });
-
+};
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Playlist | Playlist[]>

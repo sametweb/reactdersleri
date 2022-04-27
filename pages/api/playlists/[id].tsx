@@ -3,12 +3,18 @@ import { Playlist } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "db";
 import { ErrorResponse } from "types/error";
+import makeSlug from "utils/makeSlug";
 
-const editPlaylist = async (id: number, newPlaylist: Partial<Playlist>) =>
-  await prisma.playlist.update({
+const editPlaylist = async (id: number, newPlaylist: Partial<Playlist>) => {
+  if (newPlaylist.title) {
+    const slug = makeSlug(newPlaylist.title);
+    newPlaylist.slug = slug;
+  }
+  return await prisma.playlist.update({
     where: { id },
     data: newPlaylist,
   });
+};
 
 const getPlaylist = async (id: number) =>
   await prisma.playlist.findUnique({ where: { id } });
