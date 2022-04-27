@@ -1,0 +1,7 @@
+.defaultThumbnail {
+  @apply w-[160px] h-[90px] bg-cover bg-center;
+  background-image: url("../../assets/defaultVideoThumbnail.png");
+}
+
+.postImage {
+}

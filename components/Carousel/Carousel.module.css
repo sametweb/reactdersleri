@@ -1,0 +1,23 @@
+.container {
+}
+.carousel {
+  @apply flex flex-row justify-between items-center h-[160px];
+}
+.items {
+  @apply flex flex-row justify-start w-full;
+}
+.item {
+  @apply w-[240px];
+}
+.image {
+}
+.title {
+  @apply font-bold;
+}
+
+.leftArrow {
+  @apply cursor-pointer px-3;
+}
+.rightArrow {
+  @apply cursor-pointer px-3;
+}

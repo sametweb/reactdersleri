@@ -1,20 +1,3 @@
 .container {
   @apply w-[1280px] mx-auto pt-10;
 }
-
-.post {
-  @apply flex flex-row mb-2;
-}
-
-.defaultThumbnail {
-  @apply w-[160px] h-[90px] bg-cover bg-center;
-  background-image: url('../assets/defaultVideoThumbnail.png');
-}
-
-.postImage {
-  @apply mr-2;
-}
-
-.title {
-  @apply font-Header;
-}

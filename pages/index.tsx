@@ -1,56 +1,48 @@
+// global
 import type { GetServerSideProps, NextPage } from "next";
-import styles from "styles/Home.module.css";
-import { InferGetServerSidePropsType } from "next";
-import { getPosts } from "./api/posts";
+
+// local
 import Layout from "components/Layout";
-import Image, { ImageLoader } from "next/image";
+import Carousel from "components/Carousel";
+import styles from "styles/Home.module.css";
+import { getPlaylists } from "./api/playlists";
+
+// types
+import type { InferGetServerSidePropsType } from "next";
+import { Playlist, Post } from "@prisma/client";
 
 type ComponentProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const ytLoader: ImageLoader = (props) => {
-  return props.src;
-};
-
 const Home: NextPage<ComponentProps> = (props) => {
-  const { posts } = props;
+  const { playlists } = props;
 
   return (
     <Layout>
       <div className={styles.container}>
-        {posts.map((post: any) => {
-          return (
-            <div key={post.id} className={styles.post}>
-              <div className={styles.postImage}>
-                {post.imageUrl ? (
-                  <Image
-                    loader={ytLoader}
-                    src={post.imageUrl}
-                    alt={post.title}
-                    width={160}
-                    height={90}
-                  />
-                ) : (
-                  <div className={styles.defaultThumbnail} />
-                )}
-              </div>
-              <h2 className={styles.title}>{post.title}</h2>
-            </div>
-          );
-        })}
+        {playlists.map((playlist) => (
+          <Carousel posts={playlist.posts} title="" />
+        ))}
       </div>
     </Layout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const posts = await getPosts();
+export const getServerSideProps: GetServerSideProps<{
+  playlists: (Playlist & { posts: Post[] })[];
+}> = async () => {
+  const playlists = await getPlaylists();
 
   return {
     props: {
-      posts: posts.map((post) => ({
-        ...post,
-        createdAt: post.createdAt.toLocaleString(),
-        updatedAt: post.updatedAt.toLocaleString(),
+      playlists: playlists.map((playlist) => ({
+        ...playlist,
+        createdAt: playlist.createdAt.toLocaleString(),
+        updatedAt: playlist.updatedAt.toLocaleString(),
+        posts: playlist.posts.map((post) => ({
+          ...post,
+          createdAt: post.createdAt.toLocaleString(),
+          updatedAt: post.updatedAt.toLocaleString(),
+        })),
       })),
     },
   };
