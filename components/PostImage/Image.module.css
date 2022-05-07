@@ -1,7 +1,9 @@
 .defaultThumbnail {
-  @apply w-[160px] h-[90px] bg-cover bg-center;
+  @apply aspect-video bg-cover bg-center;
   background-image: url("../../assets/defaultVideoThumbnail.png");
 }
 
 .postImage {
+  @apply aspect-video min-w-[125px] min-h-[70px];
+  line-height: 0;
 }

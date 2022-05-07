@@ -13,7 +13,7 @@ datasource db {
 model Post {
   id         Int       @id @default(autoincrement())
   title      String    @db.VarChar(255)
-  slug       String    @db.VarChar(255)
+  slug       String    @unique @db.VarChar(255)
   content    String?
   videoUrl   String?
   imageUrl   String?   @db.Text
@@ -24,16 +24,20 @@ model Post {
   playlistId Int?
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
+
+  @@index([slug])
 }
 
 model Playlist {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
-  slug      String   @db.VarChar(255)
+  slug      String   @unique @db.VarChar(255)
   imageUrl  String?  @db.Text
   posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([slug])
 }
 
 model Account {

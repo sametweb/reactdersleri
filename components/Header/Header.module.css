@@ -7,7 +7,7 @@
 }
 
 .logo {
-    @apply text-xl flex items-center font-bold;
+    @apply text-xl flex items-center font-bold cursor-pointer;
 }
 
 .container {
