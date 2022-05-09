@@ -39,7 +39,7 @@
 }
 
 .playlistItemSelected {
-  @apply bg-slate-100 relative border border-slate-200 border-r-0 cursor-default;
+  @apply bg-slate-100 hover:bg-slate-100 relative border border-slate-200 border-r-0 cursor-default;
 }
 
 .playlistItemTitle {

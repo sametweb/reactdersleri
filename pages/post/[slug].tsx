@@ -27,16 +27,14 @@ type ComponentProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const Post: NextPage<ComponentProps> = (props) => {
   const [volume, setVolume] = useState(0.7);
+  const [seeking, setSeeking] = useState(false);
   const [playerProps, setPlayerProps] = useState({
     playing: false,
     playbackRate: 1,
     width: "100%",
     height: "100%",
-    seeking: false,
     played: 0,
-    playedSeconds: 0,
     loaded: 0,
-    loadedSeconds: 0,
     duration: 0,
     volume,
     muted: false,
@@ -71,7 +69,7 @@ const Post: NextPage<ComponentProps> = (props) => {
   const makeFullScreen = () => playerWrapperRef.current?.requestFullscreen();
 
   const handleSeekMouseDown = () => {
-    setPlayerProps({ ...playerProps, seeking: true });
+    setSeeking(true);
   };
 
   const handleSeekChange = (e: any) => {
@@ -79,18 +77,17 @@ const Post: NextPage<ComponentProps> = (props) => {
   };
 
   const handleSeekMouseUp = (e: any) => {
-    setPlayerProps({ ...playerProps, seeking: false });
+    setSeeking(false);
     playerRef.current?.seekTo(parseFloat(e.target.value));
   };
 
   const handleProgress: BaseReactPlayerProps["onProgress"] = (state) => {
-    if (!playerProps.seeking) {
+    if (!seeking) {
       setPlayerProps({ ...playerProps, ...state });
     }
   };
 
   const handleDuration = (duration: number) => {
-    console.log("onDuration", duration);
     setPlayerProps({ ...playerProps, duration });
   };
 
@@ -119,7 +116,7 @@ const Post: NextPage<ComponentProps> = (props) => {
   const handleSelectedPostScrollIntoView = (element: HTMLDivElement | null) => {
     element?.scrollIntoView();
   };
-
+  console.log("played", playerProps.played);
   return (
     <Layout>
       <div className={styles.container}>
@@ -171,7 +168,6 @@ const Post: NextPage<ComponentProps> = (props) => {
                 max={0.999999}
                 step="any"
                 value={playerProps.played}
-                style={{ "--percentage": `${playerProps.played * 100}` } as React.CSSProperties}
                 onMouseDown={handleSeekMouseDown}
                 onChange={handleSeekChange}
                 onMouseUp={handleSeekMouseUp}
