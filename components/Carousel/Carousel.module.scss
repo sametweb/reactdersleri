@@ -1,11 +1,11 @@
 .container {
-  @apply bg-slate-50 py-5 mb-10 shadow;
+  @apply bg-slate-50 dark:bg-slate-800 py-5 mb-10 shadow;
 }
 .carousel {
   @apply flex flex-row justify-between;
 }
 .carouselTitle {
-  @apply pl-11 pb-3 text-lg font-bold mb-5 border-b border-b-slate-200;
+  @apply pl-11 pb-3 text-lg font-bold mb-5 border-b border-b-slate-200 dark:border-b-slate-700 dark:text-slate-50;
 }
 .items {
   @apply flex flex-row justify-start w-full overflow-scroll snap-x snap-mandatory scroll-smooth;
@@ -19,16 +19,17 @@
   @apply min-w-[240px] mx-1 snap-start cursor-pointer;
 }
 .image {
+  @apply mb-2;
 }
 .title {
-  @apply text-sm font-semibold;
+  @apply text-sm font-semibold dark:text-slate-200;
 }
 
 .leftArrow {
-  @apply cursor-pointer px-3 flex flex-1;
+  @apply cursor-pointer px-3 flex flex-1 dark:text-slate-200;
 }
 .rightArrow {
-  @apply cursor-pointer px-3 flex flex-1;
+  @apply cursor-pointer px-3 flex flex-1 dark:text-slate-200;
 }
 
 .inactiveArrow {
