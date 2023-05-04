@@ -1,19 +1,18 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as nextAuth from "next-auth/react";
-import styles from "./Header.module.scss";
-import Image from "next/image";
-import logo from "assets/logo.png";
-import Link from "next/link";
-import classNames from "classnames";
 import {
+  LoginIcon,
+  LogoutIcon,
   UserCircleIcon,
   UserIcon,
   ViewGridIcon,
-  LoginIcon,
-  LogoutIcon,
-  MoonIcon as DarkModeIcon,
 } from "@heroicons/react/solid";
-import { MoonIcon as LightModeIcon } from "@heroicons/react/outline";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import classNames from "classnames";
+import logo from "assets/logo.png";
+import styles from "./Header.module.scss";
+
 const { signIn, signOut } = nextAuth;
 
 interface Props {

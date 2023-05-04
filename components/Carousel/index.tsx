@@ -1,30 +1,41 @@
-import React, { useEffect, useRef, useState } from "react";
-import styles from "./Carousel.module.scss";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import { Playlist, Post } from "@prisma/client";
+import Link from "next/link";
 import PostImage from "components/PostImage";
 import classNames from "classnames";
-import Link from "next/link";
+import styles from "./Carousel.module.scss";
 
 interface Props {
   playlist: Playlist;
   posts: Post[];
 }
 
-const itemWidth = 240;
-
-const Carousel: React.FC<Props> = (props) => {
+const Carousel: FunctionComponent<Props> = (props) => {
   const [arrowsVisible, setArrowsVisible] = useState(false);
   const { posts, playlist } = props;
   const itemsRef = useRef<HTMLDivElement>(null);
 
   const onArrowClick = (direction: "prev" | "next") => () => {
-    if (itemsRef.current) {
-      if (direction === "next") itemsRef.current.scrollLeft += itemWidth;
-      else itemsRef.current.scrollLeft -= itemWidth;
-    }
+    const ref = itemsRef.current;
+    console.log(
+      ref?.clientLeft,
+      ref?.offsetLeft,
+      ref?.scrollLeft,
+      ref?.scrollWidth,
+      ref?.clientWidth,
+      ref?.offsetWidth,
+      typeof ref?.scrollWidth === "number" &&
+        typeof ref.offsetLeft === "number" &&
+        typeof ref.offsetWidth === "number" &&
+        ref?.scrollWidth - (ref?.scrollLeft + ref?.offsetWidth)
+    );
+    const multiplier = direction === "next" ? 1 : -1;
+    itemsRef.current?.scrollBy({
+      behavior: "smooth",
+      left: multiplier * itemsRef.current.clientWidth,
+    });
   };
-
   useEffect(() => {
     const ref = itemsRef.current;
     const arrowsVisible = ref ? ref.scrollWidth > ref.clientWidth : false;

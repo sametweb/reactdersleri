@@ -8,7 +8,7 @@
   @apply pl-11 pb-3 text-lg font-bold mb-5 border-b border-b-slate-200 dark:border-b-slate-700 dark:text-slate-50;
 }
 .items {
-  @apply flex flex-row justify-start w-full overflow-scroll snap-x snap-mandatory scroll-smooth;
+  @apply flex flex-row justify-start w-full overflow-scroll snap-x snap-mandatory scroll-smooth gap-2;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -16,7 +16,7 @@
   }
 }
 .item {
-  @apply min-w-[240px] mx-1 snap-start cursor-pointer;
+  @apply min-w-[232px] snap-start cursor-pointer;
 }
 .image {
   @apply mb-2;
